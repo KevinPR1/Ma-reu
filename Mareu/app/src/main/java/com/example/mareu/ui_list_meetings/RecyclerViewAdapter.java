@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Kevin  - Openclassrooms on 09/11/2019
  */
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
 
