@@ -19,11 +19,11 @@
 
     <!-- TOOLBAR TITLE THEME -->
     <style name="AppTheme.titletext" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">21sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <!-- ITEM LIST TITLE -->
-    <style name="AppTheme.itemtitletext" parent="TextAppearance.AppCompat.Title">
+    <style name="AppTheme.itemTitleText" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">18sp</item>
     </style>
 
