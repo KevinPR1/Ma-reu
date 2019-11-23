@@ -6,5 +6,5 @@
     <string name="edit_text_hint_subject">Sujet</string>
     <string name="edit_text_hint_hour">Choisissez l\'heure</string>
     <string name="edit_text_hint_guest">Participants</string>
-    <string name="edit_text_hint_duration">Durée</string>
+    <string name="textView_text_hint_duration">45 minutes</string>
 </resources>

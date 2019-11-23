@@ -71,8 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView guests;
         @BindView(R.id.item_list_meeting_delete_button)
         public ImageButton deleteButton;
-        @BindView(R.id.textView_duration_meeting)
-        public TextView duration;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -81,7 +80,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public void updateView(Meeting meeting) {
 
-            String update = meeting.getSubject() + " - " + meeting.getHour() + " - " + meeting.getPlace();
+            String update = meeting.getSubject() + " - " + meeting.getDate() + " - " + meeting.getHour() + " - " + meeting.getPlace();
             if (update.length() > 25){
                 update = update.substring(0,25);
                 update+= "...";
@@ -96,8 +95,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
             guests.setText(mail);
 
-            String defaultDuration = meeting.getDuration() + " minutes";
-            duration.setText(defaultDuration);
         }
 
 
