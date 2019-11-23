@@ -23,23 +23,35 @@
         android:id="@+id/edit_text__hour_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/default_marginStart"
         android:layout_marginTop="20dp"
         android:focusable="true"
         android:focusableInTouchMode="false"
-        android:hint="@string/Tedit_text_hint_hour"
+        android:hint="@string/edit_text_hint_hour"
         app:layout_constraintBottom_toBottomOf="@id/spinner_dialog"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_text_subject_dialog"
         tools:ignore="Autofill,TextFields" />
 
 
+    <EditText
+        android:id="@+id/edit_text__date_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:focusable="true"
+        android:focusableInTouchMode="false"
+        android:hint="@string/edit_text_hint_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text__hour_dialog"
+        tools:ignore="Autofill,TextFields" />
+
     <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/spinner_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
         android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintBottom_toBottomOf="@id/edit_text__hour_dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_text_subject_dialog"
@@ -50,13 +62,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:focusable="true"
         android:focusableInTouchMode="false"
-        android:hint="@string/Tedit_text_hint_guest"
+        android:hint="@string/edit_text_hint_guest"
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text__hour_dialog"
+        app:layout_constraintTop_toBottomOf="@id/edit_text__date_dialog"
+        tools:ignore="Autofill,TextFields" />
+
+
+    <TextView
+        android:id="@+id/TextView_duration_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/default_marginEnd"
+        android:focusable="true"
+        android:focusableInTouchMode="false"
+        android:maxLines="1"
+        android:text="@string/textView_text_hint_duration"
+        android:textColor="@color/colorPrimary"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="Autofill,TextFields" />
 
 </android.support.constraint.ConstraintLayout>

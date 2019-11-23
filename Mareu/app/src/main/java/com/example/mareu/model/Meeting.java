@@ -4,60 +4,75 @@ package com.example.mareu.model;
  * Created by Kevin  - Openclassrooms on 09/11/2019
  */
 public class Meeting {
-    private String hour;
-    private String place ;
-    private String subject;
-    private String participants;
-    private int image;
+    private String mHour , mParticipants , mSubject ,mPlace ,mDate;
+    private int mImage;
+    private Integer mDuration;
 
 
-
-    public Meeting(String hour, String place, String subject, String participants,int image) {
-        this.hour = hour;
-        this.place = place;
-        this.subject = subject;
-        this.participants = participants;
-        this.image = image;
+    public Meeting(String hour, String place, String subject, String participants, String date,int image) {
+        mHour = hour;
+        mPlace = place;
+        mSubject = subject;
+        mParticipants = participants;
+        mImage = image;
+        mDuration = 45;
+        mDate = date;
     }
 
 
     public String getHour() {
-        return hour;
+        return mHour;
     }
 
     public void setHour(String hour) {
-        this.hour = hour;
+        this.mHour = hour;
     }
 
     public String getPlace() {
-        return place;
+        return mPlace;
     }
 
     public void setPlace(String place) {
-        this.place = place;
+        this.mPlace = place;
     }
 
     public String getSubject() {
-        return subject;
+        return mSubject;
     }
 
     public void setSubject(String subject) {
-        this.subject = subject;
+        this.mSubject = subject;
     }
 
     public String getParticipants() {
-        return participants;
+        return mParticipants;
     }
 
     public void setParticipants(String participants) {
-        this.participants = participants;
+        this.mParticipants = participants;
     }
 
     public int getImage() {
-        return image;
+        return mImage;
     }
 
     public void setImage(int image) {
-        this.image = image;
+        this.mImage = image;
+    }
+
+    public Integer getDuration() {
+        return mDuration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.mDuration = duration;
+    }
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.mareu.view.dialog;
 
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -17,8 +18,10 @@ import android.text.format.DateFormat;
 import android.view.View;
 
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -42,16 +45,20 @@ import java.util.Objects;
  * Created by Kevin  - Openclassrooms on 20/11/2019
  */
 public class DialogCustomMeeting extends DialogFragment {
-    private EditText subject;
-    private EditText hour;
-    private EditText guest;
+    private EditText subject, guest, hour, date;
     private Spinner spinner;
-    private int currentHour;
-    private int currentMinute;
+
     private MeetingApiService service;
     private ArrayList<Integer> selectedItems = new ArrayList<>();
     private boolean[] checkedItems;
+    private TextView duration;
 
+
+    private int currentHour;
+    private int currentMinute;
+    private int year;
+    private int month;
+    private int day;
 
     @NonNull
     @Override
@@ -64,7 +71,9 @@ public class DialogCustomMeeting extends DialogFragment {
         subject = view.findViewById(R.id.edit_text_subject_dialog);
         hour = view.findViewById(R.id.edit_text__hour_dialog);
         guest = view.findViewById(R.id.edit_text_guest_dialog);
+        duration = view.findViewById(R.id.TextView_duration_dialog);
         spinner = view.findViewById(R.id.spinner_dialog);
+        date = view.findViewById(R.id.edit_text__date_dialog);
 
         service = DI.getMeetingApiService();
 
@@ -79,9 +88,9 @@ public class DialogCustomMeeting extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         MeetingRoom meetingRoom = (MeetingRoom) spinner.getSelectedItem();
-                        Meeting meeting = new Meeting(hour.getText().toString(), meetingRoom.getName(), subject.getText().toString(), guest.getText().toString(), meetingRoom.getImage());
+                        Meeting meeting = new Meeting(hour.getText().toString(), meetingRoom.getName(), subject.getText().toString(), guest.getText().toString(), date.getText().toString(), meetingRoom.getImage());
                         which = 0;
-                        if (which == guest.length() || which == hour.length() || which == subject.length()) {
+                        if (which == guest.length() || which == hour.length() || which == subject.length() || which == date.length()) {
                             dismiss();
                             Toast.makeText(getActivity(), "Remplissez tous les caractères pour  créer une réunion", Toast.LENGTH_LONG).show();
                         } else {
@@ -110,6 +119,12 @@ public class DialogCustomMeeting extends DialogFragment {
             @Override
             public void onClick(View view) {
                 configureGuest();
+            }
+        });
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                configureDate();
             }
         });
 
@@ -197,4 +212,27 @@ public class DialogCustomMeeting extends DialogFragment {
     }
     // Show Dialog (MutliChoiceItems) ---------------------------------------------------------------------------------------------------------------------------
 
+    private void configureDate() {
+        Calendar cal = Calendar.getInstance();
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dialog = new DatePickerDialog(Objects.requireNonNull(getActivity()), R.style.AppTheme_DatePicker, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String customDate = day + "/" + month + "/" + year;
+                date.setText(customDate);
+            }
+        }, year, month, day);
+
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.show();
+
+    }
+    // Show DatePicker ---------------------------------------------------------------------------------------------------------------------------
 }
