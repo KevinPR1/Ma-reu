@@ -13,7 +13,7 @@
     <!-- TOOLBAR THEME -->
     <style name="AppTheme.ToolBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <!-- Color of the title text in the Toolbar -->
-        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/toolBar_title</item>
     </style>
 
 
@@ -26,5 +26,12 @@
     <style name="AppTheme.itemTitleText" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">18sp</item>
     </style>
+
+
+
+    <!-- TIMEPICKER THEME -->
+    <style name="AppTheme.TimePicker" parent="android:Theme.Holo.Light.Dialog.MinWidth"/>
+
+
 
 </resources>

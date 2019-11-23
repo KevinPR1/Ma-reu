@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout_spinner_item_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/circle_imageView_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/img_mario" />
+
+
+    <TextView
+        android:id="@+id/textView_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/circle_imageView_spinner"
+        android:layout_alignBottom="@id/circle_imageView_spinner"
+        android:layout_marginStart="@dimen/margin_Start"
+        android:layout_toEndOf="@id/circle_imageView_spinner"
+        android:gravity="center"
+        android:textAppearance="@style/AppTheme.itemTitleText"
+        android:textStyle="bold"
+        tools:text="Mario" />
+
+
+</RelativeLayout>

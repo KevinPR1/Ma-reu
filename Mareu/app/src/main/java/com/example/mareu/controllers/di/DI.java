@@ -1,4 +1,4 @@
-package com.example.mareu.di;
+package com.example.mareu.controllers.di;
 
 import com.example.mareu.services.ImpMeetingApiService;
 import com.example.mareu.services.MeetingApiService;

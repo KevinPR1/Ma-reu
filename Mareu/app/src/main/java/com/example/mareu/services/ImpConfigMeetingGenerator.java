@@ -39,7 +39,7 @@ public class ImpConfigMeetingGenerator {
             new MeetingGuest("Pierre","pierre@lamzone.com"),
             new MeetingGuest("Alice","alice@lamzone.com"),
             new MeetingGuest("Damien","damien@lamzone.com"),
-            new MeetingGuest("Pierre","pierre@lamzone.com"),
+            new MeetingGuest("Baptiste","baptiste@lamzone.com"),
             new MeetingGuest("Luc","Luc@lamzone.com"),
             new MeetingGuest("Sofia","sofia@lamzone.com"),
             new MeetingGuest("Louis","louis@lamzone.com"),
@@ -51,17 +51,8 @@ public class ImpConfigMeetingGenerator {
 
     public static List<Meeting> MEETING_LIST = Arrays.asList(
             new Meeting("16h00",MEETING_ROOMS_LIST.get(0).getName(),"Réunion A",MEMBER_LIST.get(0).getMail(),MEETING_ROOMS_LIST.get(0).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(1).getName(),"Réunion A",MEMBER_LIST.get(1).getMail(),MEETING_ROOMS_LIST.get(1).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(2).getName(),"Réunion A",MEMBER_LIST.get(2).getMail(),MEETING_ROOMS_LIST.get(2).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(3).getName(),"Réunion A",MEMBER_LIST.get(3).getMail(),MEETING_ROOMS_LIST.get(3).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(4).getName(),"Réunion A",MEMBER_LIST.get(4).getMail(),MEETING_ROOMS_LIST.get(4).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(5).getName(),"Réunion A",MEMBER_LIST.get(5).getMail(),MEETING_ROOMS_LIST.get(5).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(6).getName(),"Réunion A",MEMBER_LIST.get(6).getMail(),MEETING_ROOMS_LIST.get(6).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(7).getName(),"Réunion A",MEMBER_LIST.get(7).getMail(),MEETING_ROOMS_LIST.get(7).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(8).getName(),"Réunion A",MEMBER_LIST.get(8).getMail(),MEETING_ROOMS_LIST.get(8).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(9).getName(),"Réunion A",MEMBER_LIST.get(9).getMail(),MEETING_ROOMS_LIST.get(9).getImage())
-
-
+            new Meeting("15h00",MEETING_ROOMS_LIST.get(1).getName(),"Réunion B",MEMBER_LIST.get(1).getMail(),MEETING_ROOMS_LIST.get(1).getImage()),
+            new Meeting("15h00",MEETING_ROOMS_LIST.get(2).getName(),"Réunion C",MEMBER_LIST.get(2).getMail(),MEETING_ROOMS_LIST.get(2).getImage())
     );
 
 

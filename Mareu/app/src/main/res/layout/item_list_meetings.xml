@@ -45,11 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_Start"
-            tools:text="luc@lamzone.com, adrien@lamzone.com,paul@lamzone.com"
+            tools:text="luc@lamzone.com, adrien@lamzone.com"
             android:textStyle="bold"
             android:maxLines="1"
-            android:maxLength="33"
-            android:ellipsize="end"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/item_title"

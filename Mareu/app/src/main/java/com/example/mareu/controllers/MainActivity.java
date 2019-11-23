@@ -5,19 +5,19 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
 
 import com.example.mareu.R;
 
-import com.example.mareu.fragments.MainFragment;
+import com.example.mareu.controllers.fragments.MainFragment;
+import com.example.mareu.view.dialog.DialogCustomMeeting;
 
 
 import butterknife.BindView;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_activity_main,menu);
-        return  true;
+        return true;
     }
 
     public void configureToolbar(){
@@ -92,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
         mFloatingActionButtong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSnackbar.show();
+                DialogFragment dialogFragment = new DialogCustomMeeting();
+                dialogFragment.show(getSupportFragmentManager(),"dialog");
             }
         });
 

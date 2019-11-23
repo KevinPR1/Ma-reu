@@ -3,4 +3,5 @@
     <dimen name="margin_init">20dp</dimen>
     <dimen name="margin_Start">15dp</dimen>
     <dimen name="textview_init">265dp</dimen>
+    <dimen name="edit_text_dialog_init">200dp</dimen>
 </resources>

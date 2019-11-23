@@ -1,6 +1,7 @@
 package com.example.mareu.model;
 
 
+import android.support.annotation.NonNull;
 
 /**
  * Created by Kevin  - Openclassrooms on 14/11/2019
@@ -25,4 +26,9 @@ public class MeetingRoom {
     }
 
 
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
+    }
 }
