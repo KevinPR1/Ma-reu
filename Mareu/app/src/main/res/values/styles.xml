@@ -32,6 +32,9 @@
     <!-- TIMEPICKER THEME -->
     <style name="AppTheme.TimePicker" parent="android:Theme.Holo.Light.Dialog.MinWidth"/>
 
+    <!-- DATEPICKER THEME -->
+    <style name="AppTheme.DatePicker" parent="android:Theme.Holo.Light.Dialog.MinWidth"/>
+
 
 
 </resources>
