@@ -68,9 +68,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @BindView(R.id.item_title)
         public TextView title;
         @BindView(R.id.item_guest)
-        TextView guests;
+        public TextView guests;
         @BindView(R.id.item_list_meeting_delete_button)
         public ImageButton deleteButton;
+        @BindView(R.id.textView_duration_meeting)
+        public TextView duration;
 
         public ViewHolder(View view) {
             super(view);
@@ -93,6 +95,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 mail+= "...";
             }
             guests.setText(mail);
+
+            String defaultDuration = meeting.getDuration() + " minutes";
+            duration.setText(defaultDuration);
         }
 
 
