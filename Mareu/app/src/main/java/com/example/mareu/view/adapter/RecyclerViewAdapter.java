@@ -68,9 +68,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @BindView(R.id.item_title)
         public TextView title;
         @BindView(R.id.item_guest)
-        TextView guests;
+        public TextView guests;
         @BindView(R.id.item_list_meeting_delete_button)
         public ImageButton deleteButton;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -79,20 +80,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public void updateView(Meeting meeting) {
 
-            String update = meeting.getSubject() + " - " + meeting.getHour() + " - " + meeting.getPlace();
-            if (update.length() > 25){
-                update = update.substring(0,25);
+            String update = meeting.getSubject() + " - " + meeting.getDate() + " - " + meeting.getHour() + " - " + meeting.getPlace();
+            if (update.length() > 30){
+                update = update.substring(0,30);
                 update+= "...";
             }
             title.setText(update);
             mCircleImageView.setImageResource(meeting.getImage());
 
             String mail = meeting.getParticipants();
-            if (mail.length() > 32){
-                mail = mail.substring(0,32);
+            if (mail.length() > 30){
+                mail = mail.substring(0,30);
                 mail+= "...";
             }
             guests.setText(mail);
+
         }
 
 

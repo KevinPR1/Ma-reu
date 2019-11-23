@@ -50,9 +50,9 @@ public class ImpConfigMeetingGenerator {
 
 
     public static List<Meeting> MEETING_LIST = Arrays.asList(
-            new Meeting("16h00",MEETING_ROOMS_LIST.get(0).getName(),"Réunion A",MEMBER_LIST.get(0).getMail(),MEETING_ROOMS_LIST.get(0).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(1).getName(),"Réunion B",MEMBER_LIST.get(1).getMail(),MEETING_ROOMS_LIST.get(1).getImage()),
-            new Meeting("15h00",MEETING_ROOMS_LIST.get(2).getName(),"Réunion C",MEMBER_LIST.get(2).getMail(),MEETING_ROOMS_LIST.get(2).getImage())
+            new Meeting("16h00",MEETING_ROOMS_LIST.get(0).getName(),"Réunion A",MEMBER_LIST.get(0).getMail(),"27/02/2019",MEETING_ROOMS_LIST.get(0).getImage()),
+            new Meeting("15h00",MEETING_ROOMS_LIST.get(1).getName(),"Réunion B",MEMBER_LIST.get(1).getMail(),"27/02/2019",MEETING_ROOMS_LIST.get(1).getImage()),
+            new Meeting("15h00",MEETING_ROOMS_LIST.get(2).getName(),"Réunion C",MEMBER_LIST.get(2).getMail(),"27/02/2019",MEETING_ROOMS_LIST.get(2).getImage())
     );
 
 
