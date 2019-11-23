@@ -43,9 +43,7 @@ import java.util.Objects;
  * Created by Kevin  - Openclassrooms on 20/11/2019
  */
 public class DialogCustomMeeting extends DialogFragment {
-    private EditText subject;
-    private EditText hour;
-    private EditText guest;
+    private EditText subject , guest,hour;
     private Spinner spinner;
     private int currentHour;
     private int currentMinute;

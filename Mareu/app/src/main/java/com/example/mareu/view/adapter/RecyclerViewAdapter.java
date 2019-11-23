@@ -81,16 +81,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public void updateView(Meeting meeting) {
 
             String update = meeting.getSubject() + " - " + meeting.getDate() + " - " + meeting.getHour() + " - " + meeting.getPlace();
-            if (update.length() > 25){
-                update = update.substring(0,25);
+            if (update.length() > 30){
+                update = update.substring(0,30);
                 update+= "...";
             }
             title.setText(update);
             mCircleImageView.setImageResource(meeting.getImage());
 
             String mail = meeting.getParticipants();
-            if (mail.length() > 32){
-                mail = mail.substring(0,32);
+            if (mail.length() > 30){
+                mail = mail.substring(0,30);
                 mail+= "...";
             }
             guests.setText(mail);
