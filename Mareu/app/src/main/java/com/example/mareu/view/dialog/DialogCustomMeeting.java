@@ -87,6 +87,9 @@ public class DialogCustomMeeting extends DialogFragment {
                         if (which == guest.length() || which == hour.length() || which == subject.length() || which == date.length()) {
                             dismiss();
                             Toast.makeText(getActivity(), "Remplissez tous les champs pour  créer une réunion", Toast.LENGTH_LONG).show();
+                        } else if (service.getMeetings().contains(meeting)){
+                            dismiss();
+                            Toast.makeText(getActivity(), "This meeting already exist !", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(getActivity(), "Création en cours...", Toast.LENGTH_LONG).show();
                             EventBus.getDefault().post(new CreateMeetingEvent(meeting));
