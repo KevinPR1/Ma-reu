@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mSnackbar = Snackbar.make(mConstraintLayout,"Le click a été capturé",Snackbar.LENGTH_SHORT);
+        mSnackbar = Snackbar.make(mConstraintLayout,"Choisissez un filtre",Snackbar.LENGTH_SHORT);
         configureAndShowMainFragment();
         configureFloatingActionButton();
         configureToolbar();
