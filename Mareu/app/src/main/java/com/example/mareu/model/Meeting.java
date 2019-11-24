@@ -1,5 +1,7 @@
 package com.example.mareu.model;
 
+import java.util.Objects;
+
 /**
  * Created by Kevin  - Openclassrooms on 09/11/2019
  */
@@ -74,5 +76,20 @@ public class Meeting {
 
     public void setDate(String date) {
         mDate = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Meeting meeting = (Meeting) o;
+        return mHour.equals(meeting.mHour) &&
+                mPlace.equals(meeting.mPlace) &&
+                mDate.equals(meeting.mDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mHour, mPlace, mDate);
     }
 }

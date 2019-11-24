@@ -34,7 +34,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<Meeting> mMeetingList;
 
 
-
     public RecyclerViewAdapter(List<Meeting> meetingList) {
         mMeetingList = meetingList;
     }
@@ -71,6 +70,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView guests;
         @BindView(R.id.item_list_meeting_delete_button)
         public ImageButton deleteButton;
+        @BindView(R.id.item_title2)
+        TextView title2;
 
 
         public ViewHolder(View view) {
@@ -80,20 +81,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public void updateView(Meeting meeting) {
 
-            String update = meeting.getSubject() + " - " + meeting.getDate() + " - " + meeting.getHour() + " - " + meeting.getPlace();
-            if (update.length() > 30){
-                update = update.substring(0,30);
-                update+= "...";
+            String updateTitle1 = meeting.getSubject();
+            if (updateTitle1.length() > 30) {
+                updateTitle1 = updateTitle1.substring(0, 30);
+                updateTitle1 += "...";
             }
-            title.setText(update);
+            title.setText(updateTitle1);
+
+            String updateTitle2 = meeting.getDate() + " - " + meeting.getHour() + " - " + meeting.getPlace();
+            if (updateTitle2.length() > 30) {
+                updateTitle2 = updateTitle2.substring(0, 30);
+                updateTitle2 += "...";
+            }
+            title2.setText(updateTitle2);
+
             mCircleImageView.setImageResource(meeting.getImage());
 
             String mail = meeting.getParticipants();
-            if (mail.length() > 30){
-                mail = mail.substring(0,30);
-                mail+= "...";
+            if (mail.length() > 30) {
+                mail = mail.substring(0, 30);
+                mail += "...";
             }
             guests.setText(mail);
+
 
         }
 
