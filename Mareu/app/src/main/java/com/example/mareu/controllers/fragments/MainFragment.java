@@ -15,12 +15,12 @@ import com.example.mareu.controllers.di.DI;
 import com.example.mareu.controllers.events.CreateMeetingEvent;
 import com.example.mareu.controllers.events.DeleteMeetingEvent;
 import com.example.mareu.model.Meeting;
-import com.example.mareu.model.MeetingRoom;
 import com.example.mareu.services.MeetingApiService;
 import com.example.mareu.view.adapter.RecyclerViewAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 
 import java.util.List;
 
@@ -33,8 +33,6 @@ public class MainFragment extends Fragment {
 
     private MeetingApiService mMeetingApiService;
     public List<Meeting> mMeetingList;
-    public List<MeetingRoom> mMeetingRoomsList;
-    private RecyclerViewAdapter mRecyclerViewAdapter;
     @BindView(R.id.MeetingsList_RecyclerView)
     RecyclerView mRecyclerView;
 
@@ -42,7 +40,6 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
         return (new MainFragment());
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,8 +57,8 @@ public class MainFragment extends Fragment {
     public void init() {
         mMeetingApiService = DI.getMeetingApiService();
         mMeetingList = mMeetingApiService.getMeetings();
-        mRecyclerViewAdapter = new RecyclerViewAdapter(mMeetingList);
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(mMeetingList);
+        mRecyclerView.setAdapter(recyclerViewAdapter);
     }
 
 
@@ -79,7 +76,7 @@ public class MainFragment extends Fragment {
 
     @Subscribe
     public void onDeleteCurrentMeetingEvent(DeleteMeetingEvent event) {
-        mMeetingApiService.deleteToMeetingList(event.mMeeting);
+        mMeetingApiService.deleteToMeetingList(event.meeting);
         init();
     }
 

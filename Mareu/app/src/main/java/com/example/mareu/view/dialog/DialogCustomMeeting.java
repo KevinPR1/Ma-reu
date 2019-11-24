@@ -21,7 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -45,13 +45,11 @@ import java.util.Objects;
  * Created by Kevin  - Openclassrooms on 20/11/2019
  */
 public class DialogCustomMeeting extends DialogFragment {
-    private EditText subject, guest, hour, date;
-    private Spinner spinner;
-
-    private MeetingApiService service;
-    private ArrayList<Integer> selectedItems = new ArrayList<>();
-    private boolean[] checkedItems;
-    private TextView duration;
+    private EditText mSubject, mGuest, mHour, mDate;
+    private Spinner mSpinner;
+    private MeetingApiService mMeetingApiService;
+    private ArrayList<Integer> mSelectedItems = new ArrayList<>();
+    private boolean[] mCheckedItems;
 
 
     @NonNull
@@ -62,18 +60,17 @@ public class DialogCustomMeeting extends DialogFragment {
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_custom_meeting, null);
 
-        subject = view.findViewById(R.id.edit_text_subject_dialog);
-        hour = view.findViewById(R.id.edit_text__hour_dialog);
-        guest = view.findViewById(R.id.edit_text_guest_dialog);
-        duration = view.findViewById(R.id.TextView_duration_dialog);
-        spinner = view.findViewById(R.id.spinner_dialog);
-        date = view.findViewById(R.id.edit_text__date_dialog);
+        mSubject = view.findViewById(R.id.edit_text_subject_dialog);
+        mHour = view.findViewById(R.id.edit_text__hour_dialog);
+        mGuest = view.findViewById(R.id.edit_text_guest_dialog);
+        mSpinner = view.findViewById(R.id.spinner_dialog);
+        mDate = view.findViewById(R.id.edit_text__date_dialog);
 
-        service = DI.getMeetingApiService();
+        mMeetingApiService = DI.getMeetingApiService();
 
-        ArrayAdapter<MeetingRoom> adapter = new ArrayAdapter<MeetingRoom>(getActivity(), android.R.layout.simple_spinner_item, service.getMeetingRooms());
+        ArrayAdapter<MeetingRoom> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, mMeetingApiService.getMeetingRooms());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        mSpinner.setAdapter(adapter);
 
 
         builder.setView(view)
@@ -81,13 +78,13 @@ public class DialogCustomMeeting extends DialogFragment {
                 .setPositiveButton("Créer", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                        MeetingRoom meetingRoom = (MeetingRoom) spinner.getSelectedItem();
-                        Meeting meeting = new Meeting(hour.getText().toString(), meetingRoom.getName(), subject.getText().toString(), guest.getText().toString(), date.getText().toString(), meetingRoom.getImage());
+                        MeetingRoom meetingRoom = (MeetingRoom) mSpinner.getSelectedItem();
+                        Meeting meeting = new Meeting(mHour.getText().toString(), meetingRoom.getName(), mSubject.getText().toString(), mGuest.getText().toString(), mDate.getText().toString(), meetingRoom.getImage());
                         which = 0;
-                        if (which == guest.length() || which == hour.length() || which == subject.length() || which == date.length()) {
+                        if (which == mGuest.length() || which == mHour.length() || which == mSubject.length() || which == mDate.length()) {
                             dismiss();
                             Toast.makeText(getActivity(), "Remplissez tous les champs pour  créer une réunion", Toast.LENGTH_LONG).show();
-                        } else if (service.getMeetings().contains(meeting)){
+                        } else if (mMeetingApiService.getMeetings().contains(meeting)){
                             dismiss();
                             Toast.makeText(getActivity(), "This meeting already exist !", Toast.LENGTH_LONG).show();
                         } else {
@@ -106,19 +103,19 @@ public class DialogCustomMeeting extends DialogFragment {
                     }
                 });
 
-        hour.setOnClickListener(new View.OnClickListener() {
+        mHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 configureTimePicker();
             }
         });
-        guest.setOnClickListener(new View.OnClickListener() {
+        mGuest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 configureGuest();
             }
         });
-        date.setOnClickListener(new View.OnClickListener() {
+        mDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 configureDate();
@@ -137,7 +134,7 @@ public class DialogCustomMeeting extends DialogFragment {
         TimePickerDialog dialog = new TimePickerDialog(getContext(), R.style.AppTheme_TimePicker, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int customHour, int customMinute) {
-                hour.setText(String.format(Locale.FRANCE, "%02dh%02d", customHour, customMinute));
+                mHour.setText(String.format(Locale.FRANCE, "%02dh%02d", customHour, customMinute));
             }
         }, currentHour, currentMinute, DateFormat.is24HourFormat(getActivity()));
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -148,31 +145,31 @@ public class DialogCustomMeeting extends DialogFragment {
     private void configureGuest() {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-        String[] strMemberList = new String[service.getMemberList().size()];
-        for (int i = 0; i < service.getMemberList().size(); i++) {
-            strMemberList[i] = service.getMemberList().get(i).getName();
+        String[] strMemberList = new String[mMeetingApiService.getMemberList().size()];
+        for (int i = 0; i < mMeetingApiService.getMemberList().size(); i++) {
+            strMemberList[i] = mMeetingApiService.getMemberList().get(i).getName();
         }
 
-        checkedItems = new boolean[strMemberList.length];
-        for (int i = 0; i < checkedItems.length; i++) {
-            if (selectedItems.contains(i)) {
-                checkedItems[i] = true;
+        mCheckedItems = new boolean[strMemberList.length];
+        for (int i = 0; i < mCheckedItems.length; i++) {
+            if (mSelectedItems.contains(i)) {
+                mCheckedItems[i] = true;
             }
         }
 
         builder.setTitle("Choisissez les participants")
-                .setMultiChoiceItems(strMemberList, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                .setMultiChoiceItems(strMemberList, mCheckedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which, boolean isChecked) {
 
                         if (isChecked) {
                             // If the user checked the item, add it to the selected items
-                            selectedItems.add(which);
-                            checkedItems[which] = true;
-                        } else if (selectedItems.contains(which)) {
+                            mSelectedItems.add(which);
+                            mCheckedItems[which] = true;
+                        } else if (mSelectedItems.contains(which)) {
                             // Else, if the item is already in the array, remove it
-                            selectedItems.remove(Integer.valueOf(which));
-                            checkedItems[which] = false;
+                            mSelectedItems.remove(Integer.valueOf(which));
+                            mCheckedItems[which] = false;
                         }
                     }
                 })
@@ -180,13 +177,13 @@ public class DialogCustomMeeting extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         StringBuilder items = new StringBuilder();
-                        for (int i = 0; i < selectedItems.size(); i++) {
-                            items.append(service.getMemberList().get(selectedItems.get(i)).getMail());
-                            if (i != selectedItems.size() - 1) {
+                        for (int i = 0; i < mSelectedItems.size(); i++) {
+                            items.append(mMeetingApiService.getMemberList().get(mSelectedItems.get(i)).getMail());
+                            if (i != mSelectedItems.size() - 1) {
                                 items.append(", ");
                             }
                         }
-                        guest.setText(items.toString());
+                        mGuest.setText(items.toString());
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -197,11 +194,11 @@ public class DialogCustomMeeting extends DialogFragment {
                 .setNeutralButton("Clear all", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                        for (int i = 0; i < checkedItems.length; i++) {
-                            checkedItems[i] = false;
+                        for (int i = 0; i < mCheckedItems.length; i++) {
+                            mCheckedItems[i] = false;
                         }
-                        selectedItems.clear();
-                        guest.setText("");
+                        mSelectedItems.clear();
+                        mGuest.setText("");
                     }
                 });
 
@@ -220,7 +217,7 @@ public class DialogCustomMeeting extends DialogFragment {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String customDate = day + "/" + month + "/" + year;
-                date.setText(customDate);
+                mDate.setText(customDate);
             }
         }, year, month, day);
 

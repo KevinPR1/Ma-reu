@@ -8,9 +8,9 @@ import com.example.mareu.model.Meeting;
  */
 public class DeleteMeetingEvent {
 
-public Meeting mMeeting;
+public Meeting meeting;
 
     public DeleteMeetingEvent(Meeting meeting) {
-        mMeeting = meeting;
+        this.meeting = meeting;
     }
 }

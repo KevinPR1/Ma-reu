@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class ImpMeetingApiService implements MeetingApiService{
 
-    private List<Meeting> meetingsList = ImpConfigMeetingGenerator.getMeetingList();
-    private List<MeetingRoom> meetingRoomsList =ImpConfigMeetingGenerator.getMeetingRoomsList();
-    private List<MeetingGuest> memberList =ImpConfigMeetingGenerator.getMemberList();
+    private List<Meeting> mMeetingList = ImpConfigMeetingGenerator.getMeetingList();
+    private List<MeetingRoom> mMeetingRoomsList =ImpConfigMeetingGenerator.getMeetingRoomsList();
+    private List<MeetingGuest> mMemberList =ImpConfigMeetingGenerator.getMemberList();
 
     /**
      * Meeting
@@ -21,16 +21,7 @@ public class ImpMeetingApiService implements MeetingApiService{
      */
     @Override
     public List<Meeting> getMeetings() {
-        return meetingsList;
-    }
-
-    @Override
-    public void addToMeetingList(Meeting meeting) {
-        meetingsList.add(meeting);
-    }
-    @Override
-    public void deleteToMeetingList(Meeting meeting) {
-        meetingsList.remove(meeting);
+        return mMeetingList;
     }
 
     /**
@@ -39,33 +30,27 @@ public class ImpMeetingApiService implements MeetingApiService{
      */
     @Override
     public List<MeetingRoom> getMeetingRooms() {
-        return meetingRoomsList;
+        return mMeetingRoomsList;
     }
 
-    @Override
-    public void addToMeetingRoomsList(MeetingRoom meetingRoom) {
-        meetingRoomsList.add(meetingRoom);
-    }
-
-    @Override
-    public void deleteToMeetingRoomsList(MeetingRoom meetingRoom) {
-        meetingRoomsList.remove(meetingRoom);
-    }
-
+    /**
+     * Meeting Guest
+     * @return member list
+     */
     @Override
     public List<MeetingGuest> getMemberList() {
-        return memberList;
+        return mMemberList;
     }
 
+    /**
+     * MeetingList - methods
+     */
     @Override
-    public void addToTheGuestList(MeetingGuest guest) {
-        memberList.add(guest);
+    public void addToMeetingList(Meeting meeting) {
+        mMeetingList.add(meeting);
     }
-
     @Override
-    public void deleteToMeetingRoomsList(MeetingGuest guest) {
-        memberList.remove(guest);
+    public void deleteToMeetingList(Meeting meeting) {
+        mMeetingList.remove(meeting);
     }
-
-
 }
