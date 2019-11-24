@@ -63,7 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_list_meeting_avatar)
-        public CircleImageView mCircleImageView;
+        public CircleImageView circleImageView;
         @BindView(R.id.item_title)
         public TextView title;
         @BindView(R.id.item_guest)
@@ -71,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @BindView(R.id.item_list_meeting_delete_button)
         public ImageButton deleteButton;
         @BindView(R.id.item_title2)
-        TextView title2;
+        public TextView title2;
 
 
         public ViewHolder(View view) {
@@ -95,7 +95,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
             title2.setText(updateTitle2);
 
-            mCircleImageView.setImageResource(meeting.getImage());
+            circleImageView.setImageResource(meeting.getImage());
 
             String mail = meeting.getParticipants();
             if (mail.length() > 30) {

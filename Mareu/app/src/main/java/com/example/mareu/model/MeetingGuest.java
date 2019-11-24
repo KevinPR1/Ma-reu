@@ -1,31 +1,47 @@
 package com.example.mareu.model;
 
+import java.util.Objects;
+
 /**
  * Created by Kevin  - Openclassrooms on 14/11/2019
  */
 public class MeetingGuest {
-    private String mail;
-    private String name;
+    private String mMail;
+    private String mName;
 
     public MeetingGuest(String name,String mail) {
-        this.name = name;
-        this.mail = mail;
+        mName = name;
+        mMail = mail;
     }
 
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.mName = name;
     }
 
     public String getMail() {
-        return mail;
+        return mMail;
     }
 
     public void setMail(String mail) {
-        this.mail = mail;
+        this.mMail = mail;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MeetingGuest that = (MeetingGuest) o;
+        return mMail.equals(that.mMail) &&
+                mName.equals(that.mName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mMail, mName);
     }
 }
