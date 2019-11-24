@@ -25,7 +25,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainFragment mMainFragment ;
     private Snackbar mSnackbar;
     @BindView(R.id.floating_button_add)
     FloatingActionButton mFloatingActionButtong;
@@ -64,13 +63,13 @@ public class MainActivity extends AppCompatActivity {
     private void configureAndShowMainFragment() {
 
         //  Get FragmentManager (Support) and Try to find existing instance of fragment in FrameLayout container
-        mMainFragment = (MainFragment)
+        MainFragment mainFragment = (MainFragment)
                 getSupportFragmentManager().findFragmentById(R.id.framelayout_activity_main);
 
-        if (mMainFragment == null){
-            mMainFragment= new MainFragment();
+        if (mainFragment == null){
+            mainFragment = new MainFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.framelayout_activity_main,mMainFragment)
+                    .add(R.id.framelayout_activity_main, mainFragment)
                     .commit();
         }
     }

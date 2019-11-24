@@ -21,16 +21,6 @@ public interface MeetingApiService {
     List<MeetingGuest> getMemberList();
 
     /**
-     * add meeting room to the meeting rooms list
-     */
-    void addToMeetingRoomsList(MeetingRoom meetingRoom);
-    /**
-     * delete meeting room to the meeting roomslist
-     */
-    void deleteToMeetingRoomsList(MeetingRoom meetingRoom);
-
-
-    /**
      * add meeting to the meetings list
      */
     void addToMeetingList(Meeting meeting);
@@ -38,16 +28,4 @@ public interface MeetingApiService {
      * delete meeting to the meetings list
      */
     void deleteToMeetingList(Meeting meeting);
-
-
-
-    /**
-     * add guest  to the guest list
-     */
-    void addToTheGuestList(MeetingGuest guest);
-
-    /**
-     * delete guest  to the guest list
-     */
-    void deleteToMeetingRoomsList(MeetingGuest guest);
 }
