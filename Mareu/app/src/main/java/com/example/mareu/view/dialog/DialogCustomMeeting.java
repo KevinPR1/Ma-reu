@@ -54,12 +54,6 @@ public class DialogCustomMeeting extends DialogFragment {
     private TextView duration;
 
 
-    private int currentHour;
-    private int currentMinute;
-    private int year;
-    private int month;
-    private int day;
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -92,7 +86,7 @@ public class DialogCustomMeeting extends DialogFragment {
                         which = 0;
                         if (which == guest.length() || which == hour.length() || which == subject.length() || which == date.length()) {
                             dismiss();
-                            Toast.makeText(getActivity(), "Remplissez tous les caractères pour  créer une réunion", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Remplissez tous les champs pour  créer une réunion", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(getActivity(), "Création en cours...", Toast.LENGTH_LONG).show();
                             EventBus.getDefault().post(new CreateMeetingEvent(meeting));
@@ -135,8 +129,8 @@ public class DialogCustomMeeting extends DialogFragment {
 
     private void configureTimePicker() {
         Calendar calendar = Calendar.getInstance();
-        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        currentMinute = calendar.get(Calendar.MINUTE);
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
         TimePickerDialog dialog = new TimePickerDialog(getContext(), R.style.AppTheme_TimePicker, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int customHour, int customMinute) {
@@ -214,9 +208,9 @@ public class DialogCustomMeeting extends DialogFragment {
 
     private void configureDate() {
         Calendar cal = Calendar.getInstance();
-        year = cal.get(Calendar.YEAR);
-        month = cal.get(Calendar.MONTH);
-        day = cal.get(Calendar.DAY_OF_MONTH);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog dialog = new DatePickerDialog(Objects.requireNonNull(getActivity()), R.style.AppTheme_DatePicker, new DatePickerDialog.OnDateSetListener() {
             @Override

@@ -10,8 +10,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/item_list_meeting_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:civ_border_color="@color/colorPrimary"
@@ -31,11 +31,23 @@
             android:maxLines="1"
             android:textAppearance="@style/AppTheme.itemTitleText"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/item_title2"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Réunion A" />
+
+        <TextView
+            android:id="@+id/item_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_Start"
+            android:maxLines="1"
+            android:textAppearance="@style/AppTheme.itemTitleText"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.32"
-            tools:text="Réunion A - 27/02/2019 - 14h00 - Mario" />
+            tools:text="27/02/2019 - 14h00 - Mario" />
+
 
         <TextView
             android:id="@+id/item_guest"
@@ -45,9 +57,8 @@
             android:maxLines="1"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_title"
+            app:layout_constraintTop_toBottomOf="@id/item_title2"
             app:layout_constraintVertical_bias="0"
             tools:text="luc@lamzone.com,adrien@lamzone.com" />
 
