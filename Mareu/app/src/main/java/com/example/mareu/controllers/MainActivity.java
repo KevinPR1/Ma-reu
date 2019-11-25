@@ -1,22 +1,28 @@
 package com.example.mareu.controllers;
 
 
+import android.content.DialogInterface;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 
 import com.example.mareu.R;
 
+import com.example.mareu.controllers.di.DI;
 import com.example.mareu.controllers.fragments.MainFragment;
+import com.example.mareu.services.MeetingApiService;
 import com.example.mareu.view.dialog.DialogCustomMeeting;
 
 
@@ -26,12 +32,13 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     private Snackbar mSnackbar;
+    private MeetingApiService mMeetingApiService;
     @BindView(R.id.floating_button_add)
     FloatingActionButton mFloatingActionButtong;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.constraintLayout_activity_main)
-    ConstraintLayout mConstraintLayout ;
+    ConstraintLayout mConstraintLayout;
 
 
     @Override
@@ -39,24 +46,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mSnackbar = Snackbar.make(mConstraintLayout,"Choisissez un filtre",Snackbar.LENGTH_SHORT);
+        mMeetingApiService = DI.getMeetingApiService();
+        mSnackbar = Snackbar.make(mConstraintLayout, "Choisissez un filtre", Snackbar.LENGTH_SHORT);
         configureAndShowMainFragment();
         configureFloatingActionButton();
         configureToolbar();
     }
 
     /* Set elements on MainActivity
-    * ToolBar
-    * Menu - items of ToolBar
-    * MainFragment
-    */
+     * ToolBar
+     * Menu - items of ToolBar
+     * MainFragment
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_activity_main,menu);
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
         return true;
     }
 
-    public void configureToolbar(){
+    public void configureToolbar() {
         setSupportActionBar(mToolbar);
     }
 
@@ -66,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         MainFragment mainFragment = (MainFragment)
                 getSupportFragmentManager().findFragmentById(R.id.framelayout_activity_main);
 
-        if (mainFragment == null){
+        if (mainFragment == null) {
             mainFragment = new MainFragment();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.framelayout_activity_main, mainFragment)
@@ -75,27 +83,93 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Configurations Clicks
-    * FloatingActionButton
-    * items of ToolBar
-    */
-
+     * FloatingActionButton
+     * Menu items
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.filter_icon) {
-            mSnackbar.show();
+        switch (item.getItemId()) {
+            case R.id.filter_icon:
+                mSnackbar.show();
+                return true;
+            case R.id.filter_mode_meetingRooms:
+                displayDialogToFilterMeetingRooms();
+                return true;
+            case R.id.filter_mode_date:
+                displayDialogToFilterTheDate();
+                return true;
         }
-            return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
-    public void configureFloatingActionButton(){
+    public void configureFloatingActionButton() {
         mFloatingActionButtong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment dialogFragment = new DialogCustomMeeting();
-                dialogFragment.show(getSupportFragmentManager(),"dialog");
+                dialogFragment.show(getSupportFragmentManager(), "dialog");
             }
         });
 
     }
 
+    /* Configurations for each mode
+     * Place and Date
+     */
+    private void displayDialogToFilterMeetingRooms() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String[] roomList = new String[mMeetingApiService.getMeetingRooms().size()];
+        for (int i = 0; i < mMeetingApiService.getMeetingRooms().size(); i++) {
+            roomList[i] = mMeetingApiService.getMeetingRooms().get(i).getName();
+        }
+
+        builder.setTitle("")
+                .setTitle("Filtrer les réunions par salle")
+                .setSingleChoiceItems(roomList, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setPositiveButton("Filtrer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+        builder.show();
+    }
+
+    private void displayDialogToFilterTheDate() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String[] date = getResources().getStringArray(R.array.Filter_date);
+        builder.setTitle("")
+                .setTitle("Filtrer les réunions par date")
+                .setSingleChoiceItems(date, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setPositiveButton("Filtrer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+        builder.show();
+    }
 }
