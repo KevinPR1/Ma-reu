@@ -14,8 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 
 import com.example.mareu.R;
@@ -33,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Snackbar mSnackbar;
     private MeetingApiService mMeetingApiService;
+    private MainFragment mMainFragment;
     @BindView(R.id.floating_button_add)
     FloatingActionButton mFloatingActionButtong;
     @BindView(R.id.toolbar)
@@ -71,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
     private void configureAndShowMainFragment() {
 
         //  Get FragmentManager (Support) and Try to find existing instance of fragment in FrameLayout container
-        MainFragment mainFragment = (MainFragment)
+        mMainFragment = (MainFragment)
                 getSupportFragmentManager().findFragmentById(R.id.framelayout_activity_main);
 
-        if (mainFragment == null) {
-            mainFragment = new MainFragment();
+        if (mMainFragment == null) {
+            mMainFragment = new MainFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.framelayout_activity_main, mainFragment)
+                    .add(R.id.framelayout_activity_main, mMainFragment)
                     .commit();
         }
     }
@@ -88,9 +87,15 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        int i = item.getItemId();
+
+        switch (i) {
             case R.id.filter_icon:
                 mSnackbar.show();
+                return true;
+            case R.id.filter_mode_noFilter:
+                mMainFragment.mMeetingList = mMeetingApiService.getMeetings();
+                mMainFragment.dataChanged();
                 return true;
             case R.id.filter_mode_meetingRooms:
                 displayDialogToFilterMeetingRooms();
@@ -134,16 +139,13 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Filtrer", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 });
-
         builder.show();
     }
 

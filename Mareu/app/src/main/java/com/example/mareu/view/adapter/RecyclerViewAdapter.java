@@ -31,7 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private List<Meeting> mMeetingList;
+    public List<Meeting> mMeetingList;
 
 
     public RecyclerViewAdapter(List<Meeting> meetingList) {

@@ -33,6 +33,7 @@ public class MainFragment extends Fragment {
 
     private MeetingApiService mMeetingApiService;
     public List<Meeting> mMeetingList;
+    private RecyclerView.Adapter mAdapter;
     @BindView(R.id.MeetingsList_RecyclerView)
     RecyclerView mRecyclerView;
 
@@ -57,10 +58,13 @@ public class MainFragment extends Fragment {
     public void init() {
         mMeetingApiService = DI.getMeetingApiService();
         mMeetingList = mMeetingApiService.getMeetings();
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(mMeetingList);
-        mRecyclerView.setAdapter(recyclerViewAdapter);
+        mAdapter = new RecyclerViewAdapter(mMeetingList);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
+    public void dataChanged() {
+        mAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onStart() {
@@ -85,6 +89,5 @@ public class MainFragment extends Fragment {
         mMeetingApiService.addToMeetingList(event.customMeeting);
         init();
     }
-
-
 }
+
