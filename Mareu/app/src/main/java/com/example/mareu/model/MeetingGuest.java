@@ -9,7 +9,7 @@ public class MeetingGuest {
     private String mMail;
     private String mName;
 
-    public MeetingGuest(String name,String mail) {
+    public MeetingGuest(String name, String mail) {
         mName = name;
         mMail = mail;
     }

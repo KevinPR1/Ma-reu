@@ -84,7 +84,7 @@ public class DialogCustomMeeting extends DialogFragment {
                         if (which == mGuest.length() || which == mHour.length() || which == mSubject.length() || which == mDate.length()) {
                             dismiss();
                             Toast.makeText(getActivity(), "Remplissez tous les champs pour  créer une réunion", Toast.LENGTH_LONG).show();
-                        } else if (mMeetingApiService.getMeetings().contains(meeting)){
+                        } else if (mMeetingApiService.getMeetings().contains(meeting)) {
                             dismiss();
                             Toast.makeText(getActivity(), "This meeting already exist !", Toast.LENGTH_LONG).show();
                         } else {

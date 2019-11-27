@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 month = month + 1;
                 customDateToFilter = day + "/" + month + "/" + year;
                 EventBus.getDefault().post(new OnDateSetToFilterEvent(customDateToFilter));
-                Toast.makeText(getApplicationContext(),"Filtre : "+ customDateToFilter,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Filtre : " + customDateToFilter, Toast.LENGTH_SHORT).show();
             }
         }, year, month, day);
         dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
