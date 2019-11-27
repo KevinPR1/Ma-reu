@@ -15,6 +15,7 @@ public class ImpMeetingApiService implements MeetingApiService {
     private List<Meeting> mMeetingList = ImpConfigMeetingGenerator.getMeetingList();
     private List<MeetingRoom> mMeetingRoomsList = ImpConfigMeetingGenerator.getMeetingRoomsList();
     private List<MeetingGuest> mMemberList = ImpConfigMeetingGenerator.getMemberList();
+    private List<Meeting> mListToFilter = ImpConfigMeetingGenerator.getListToFilter();
 
     /**
      * Meeting
@@ -47,17 +48,6 @@ public class ImpMeetingApiService implements MeetingApiService {
         return mMemberList;
     }
 
-    @Override
-    public List<Meeting> filterDate(String dateTofiltrer) {
-        return null;
-    }
-
-    @Override
-    public List<Meeting> filterMeetingRoom(MeetingRoom meetingRoom) {
-        return null;
-    }
-
-
     /**
      * MeetingList - methods
      */
@@ -69,5 +59,23 @@ public class ImpMeetingApiService implements MeetingApiService {
     @Override
     public void deleteToMeetingList(Meeting meeting) {
         mMeetingList.remove(meeting);
+    }
+
+    @Override
+    public List<Meeting> filterDate(String dateToFiltrer) {
+        return null;
+    }
+
+    @Override
+    public List<Meeting> filterMeetingRoom(MeetingRoom meetingRoom) {
+
+        for (int i = 0; i < mMeetingList.size(); i++) {
+
+            if (mMeetingList.get(i).getPlace().equals(meetingRoom.getName())) {
+                mListToFilter.add(mMeetingList.get(i));
+            }
+        }
+
+        return mListToFilter;
     }
 }
