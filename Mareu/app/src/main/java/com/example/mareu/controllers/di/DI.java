@@ -12,9 +12,10 @@ public class DI {
 
     /**
      * Get an instance on @{@link MeetingApiService}
+     *
      * @return current implementation @{@link ImpMeetingApiService}
      */
-    public static MeetingApiService getMeetingApiService(){
+    public static MeetingApiService getMeetingApiService() {
         return sMeetingApiService;
     }
 }

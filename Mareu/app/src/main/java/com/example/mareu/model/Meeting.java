@@ -6,12 +6,12 @@ import java.util.Objects;
  * Created by Kevin  - Openclassrooms on 09/11/2019
  */
 public class Meeting {
-    private String mHour , mParticipants , mSubject ,mPlace ,mDate;
+    private String mHour, mParticipants, mSubject, mPlace, mDate;
     private int mImage;
     private Integer mDuration;
 
 
-    public Meeting(String hour, String place, String subject, String participants, String date,int image) {
+    public Meeting(String hour, String place, String subject, String participants, String date, int image) {
         mHour = hour;
         mPlace = place;
         mSubject = subject;

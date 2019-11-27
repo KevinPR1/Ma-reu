@@ -14,6 +14,9 @@ import com.example.mareu.R;
 import com.example.mareu.controllers.di.DI;
 import com.example.mareu.controllers.events.CreateMeetingEvent;
 import com.example.mareu.controllers.events.DeleteMeetingEvent;
+import com.example.mareu.controllers.events.OnDataChangedToFilterListEvent;
+import com.example.mareu.controllers.events.OnDateSetToFilterEvent;
+import com.example.mareu.controllers.events.OnItemNoFilterEvent;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.services.MeetingApiService;
 import com.example.mareu.view.adapter.RecyclerViewAdapter;
@@ -33,6 +36,7 @@ public class MainFragment extends Fragment {
 
     private MeetingApiService mMeetingApiService;
     public List<Meeting> mMeetingList;
+    private RecyclerView.Adapter mAdapter;
     @BindView(R.id.MeetingsList_RecyclerView)
     RecyclerView mRecyclerView;
 
@@ -57,10 +61,13 @@ public class MainFragment extends Fragment {
     public void init() {
         mMeetingApiService = DI.getMeetingApiService();
         mMeetingList = mMeetingApiService.getMeetings();
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(mMeetingList);
-        mRecyclerView.setAdapter(recyclerViewAdapter);
+        mAdapter = new RecyclerViewAdapter(mMeetingList);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
+    public void dataChanged() {
+        mAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onStart() {
@@ -86,5 +93,28 @@ public class MainFragment extends Fragment {
         init();
     }
 
+    @Subscribe
+    public void onDataChanged(OnDataChangedToFilterListEvent event) {
+        mMeetingList = mMeetingApiService.filterMeetingRoom(event.meetingRoom);
+        mAdapter = new RecyclerViewAdapter(mMeetingList);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+    }
 
+    @Subscribe
+    public void onNoFilterSelected(OnItemNoFilterEvent event) {
+        mMeetingList = mMeetingApiService.getMeetings();
+        mAdapter = new RecyclerViewAdapter(mMeetingList);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Subscribe
+    public void onDataSet(OnDateSetToFilterEvent event) {
+        mMeetingList = mMeetingApiService.filterDate(event.date);
+        mAdapter = new RecyclerViewAdapter(mMeetingList);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+    }
 }
+
