@@ -61,8 +61,18 @@ public class ImpMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Meeting> filterDate(String dateToFiltrer) {
-        return null;
+    public List<Meeting> filterDate(String dateToFilter) {
+
+        List<Meeting> list = new ArrayList<>();
+
+        for (int i = 0; i < mMeetingList.size(); i++) {
+
+            if (mMeetingList.get(i).getDate().equals(dateToFilter)) {
+                list.add(mMeetingList.get(i));
+            }
+        }
+
+        return list;
     }
 
     @Override

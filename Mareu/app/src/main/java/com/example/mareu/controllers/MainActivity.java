@@ -1,7 +1,10 @@
 package com.example.mareu.controllers;
 
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 
@@ -14,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 
@@ -21,6 +25,7 @@ import com.example.mareu.R;
 
 import com.example.mareu.controllers.di.DI;
 import com.example.mareu.controllers.events.OnDataChangedToFilterListEvent;
+import com.example.mareu.controllers.events.OnDateSetToFilterEvent;
 import com.example.mareu.controllers.events.OnItemNoFilterEvent;
 import com.example.mareu.controllers.fragments.MainFragment;
 import com.example.mareu.model.MeetingRoom;
@@ -30,6 +35,9 @@ import com.example.mareu.view.dialog.DialogCustomMeeting;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Calendar;
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Snackbar mSnackbar;
     private MeetingApiService mMeetingApiService;
-    private MainFragment mMainFragment;
     private MeetingRoom mMeetingRoom;
+    private String customDateToFilter;
     @BindView(R.id.floating_button_add)
     FloatingActionButton mFloatingActionButtong;
     @BindView(R.id.toolbar)
@@ -77,13 +85,13 @@ public class MainActivity extends AppCompatActivity {
     private void configureAndShowMainFragment() {
 
         //  Get FragmentManager (Support) and Try to find existing instance of fragment in FrameLayout container
-        mMainFragment = (MainFragment)
+        MainFragment mainFragment = (MainFragment)
                 getSupportFragmentManager().findFragmentById(R.id.framelayout_activity_main);
 
-        if (mMainFragment == null) {
-            mMainFragment = new MainFragment();
+        if (mainFragment == null) {
+            mainFragment = new MainFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.framelayout_activity_main, mMainFragment)
+                    .add(R.id.framelayout_activity_main, mainFragment)
                     .commit();
         }
     }
@@ -140,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mMeetingRoom = mMeetingApiService.getMeetingRooms().get(i);
-                        Toast.makeText(getApplicationContext(),"Salle : "+mMeetingRoom.getName(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Salle : " + mMeetingRoom.getName(), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setPositiveButton("Filtrer", new DialogInterface.OnClickListener() {
@@ -158,28 +166,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayDialogToFilterTheDate() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        String[] date = getResources().getStringArray(R.array.Filter_date);
-        builder.setTitle("")
-                .setTitle("Filtrer les réunions par date")
-                .setSingleChoiceItems(date, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                    }
-                })
-                .setPositiveButton("Filtrer", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-        builder.show();
+        DatePickerDialog dialog = new DatePickerDialog(this, R.style.AppTheme_DatePicker, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                customDateToFilter = day + "/" + month + "/" + year;
+                EventBus.getDefault().post(new OnDateSetToFilterEvent(customDateToFilter));
+                Toast.makeText(getApplicationContext(),"Filtre : "+ customDateToFilter,Toast.LENGTH_SHORT).show();
+            }
+        }, year, month, day);
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Filtrer", dialog);
+        dialog.show();
     }
 }
