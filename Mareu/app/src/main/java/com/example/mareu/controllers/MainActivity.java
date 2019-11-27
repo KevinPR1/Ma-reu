@@ -14,15 +14,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 
 import com.example.mareu.R;
 
 import com.example.mareu.controllers.di.DI;
+import com.example.mareu.controllers.events.OnDataChangedToFilterListEvent;
 import com.example.mareu.controllers.fragments.MainFragment;
+import com.example.mareu.model.MeetingRoom;
 import com.example.mareu.services.MeetingApiService;
 import com.example.mareu.view.dialog.DialogCustomMeeting;
 
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Snackbar mSnackbar;
     private MeetingApiService mMeetingApiService;
     private MainFragment mMainFragment;
+    private MeetingRoom mMeetingRoom;
     @BindView(R.id.floating_button_add)
     FloatingActionButton mFloatingActionButtong;
     @BindView(R.id.toolbar)
@@ -133,12 +139,14 @@ public class MainActivity extends AppCompatActivity {
                 .setSingleChoiceItems(roomList, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        mMeetingRoom = mMeetingApiService.getMeetingRooms().get(i);
+                        Toast.makeText(getApplicationContext(),"name : "+mMeetingRoom.getName(),Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setPositiveButton("Filtrer", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        EventBus.getDefault().post(new OnDataChangedToFilterListEvent(mMeetingRoom));
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
