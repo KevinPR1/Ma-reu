@@ -56,8 +56,7 @@ public class ImpConfigMeetingGenerator {
     );
 
 
-    public static List<Meeting> LIST_TO_FILTER = Arrays.asList(
-    );
+
 
 
 
@@ -69,13 +68,8 @@ public class ImpConfigMeetingGenerator {
         return new ArrayList<>(MEETING_ROOMS_LIST);
     }
 
-
     static List<MeetingGuest> getMemberList(){
         return new ArrayList<>(MEMBER_LIST);
-    }
-
-    static List<Meeting> getListToFilter(){
-       return new ArrayList<>(LIST_TO_FILTER);
     }
 
 }

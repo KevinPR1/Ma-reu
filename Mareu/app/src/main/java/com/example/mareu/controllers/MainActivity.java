@@ -21,6 +21,7 @@ import com.example.mareu.R;
 
 import com.example.mareu.controllers.di.DI;
 import com.example.mareu.controllers.events.OnDataChangedToFilterListEvent;
+import com.example.mareu.controllers.events.OnItemNoFilterEvent;
 import com.example.mareu.controllers.fragments.MainFragment;
 import com.example.mareu.model.MeetingRoom;
 import com.example.mareu.services.MeetingApiService;
@@ -100,8 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 mSnackbar.show();
                 return true;
             case R.id.filter_mode_noFilter:
-                mMainFragment.mMeetingList = mMeetingApiService.getMeetings();
-                mMainFragment.dataChanged();
+                EventBus.getDefault().post(new OnItemNoFilterEvent());
                 return true;
             case R.id.filter_mode_meetingRooms:
                 displayDialogToFilterMeetingRooms();
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mMeetingRoom = mMeetingApiService.getMeetingRooms().get(i);
-                        Toast.makeText(getApplicationContext(),"name : "+mMeetingRoom.getName(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Salle : "+mMeetingRoom.getName(),Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setPositiveButton("Filtrer", new DialogInterface.OnClickListener() {

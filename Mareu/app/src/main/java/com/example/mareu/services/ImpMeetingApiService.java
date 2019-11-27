@@ -15,7 +15,6 @@ public class ImpMeetingApiService implements MeetingApiService {
     private List<Meeting> mMeetingList = ImpConfigMeetingGenerator.getMeetingList();
     private List<MeetingRoom> mMeetingRoomsList = ImpConfigMeetingGenerator.getMeetingRoomsList();
     private List<MeetingGuest> mMemberList = ImpConfigMeetingGenerator.getMemberList();
-    private List<Meeting> mListToFilter = ImpConfigMeetingGenerator.getListToFilter();
 
     /**
      * Meeting
@@ -69,13 +68,15 @@ public class ImpMeetingApiService implements MeetingApiService {
     @Override
     public List<Meeting> filterMeetingRoom(MeetingRoom meetingRoom) {
 
+        List<Meeting> list = new ArrayList<>();
+
         for (int i = 0; i < mMeetingList.size(); i++) {
 
             if (mMeetingList.get(i).getPlace().equals(meetingRoom.getName())) {
-                mListToFilter.add(mMeetingList.get(i));
+                list.add(mMeetingList.get(i));
             }
         }
 
-        return mListToFilter;
+        return list;
     }
 }
