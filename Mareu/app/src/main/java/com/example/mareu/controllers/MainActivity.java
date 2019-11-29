@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private MeetingApiService mMeetingApiService;
     private MeetingRoom mMeetingRoom;
     private String customDateToFilter;
+    private static final String TAG = "MainActivity";
     @BindView(R.id.floating_button_add)
     FloatingActionButton mFloatingActionButtong;
     @BindView(R.id.toolbar)
@@ -142,9 +144,7 @@ public class MainActivity extends AppCompatActivity {
             roomList[i] = mMeetingApiService.getMeetingRooms().get(i).getName();
         }
 
-        builder.setTitle("")
-                .setTitle("Filtrer les réunions par salle")
-                .setSingleChoiceItems(roomList, -1, new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems(roomList, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mMeetingRoom = mMeetingApiService.getMeetingRooms().get(i);
@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         EventBus.getDefault().post(new OnDataChangedToFilterListEvent(mMeetingRoom));
+                        Log.d(TAG, "onClick: Filter with selected meeting room  = On");
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -178,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 customDateToFilter = day + "/" + month + "/" + year;
                 EventBus.getDefault().post(new OnDateSetToFilterEvent(customDateToFilter));
                 Toast.makeText(getApplicationContext(), "Filtre : " + customDateToFilter, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: Filter with selected date  = On");
             }
         }, year, month, day);
         dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
