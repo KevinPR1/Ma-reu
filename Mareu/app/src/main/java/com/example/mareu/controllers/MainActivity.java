@@ -27,6 +27,7 @@ import com.example.mareu.R;
 import com.example.mareu.controllers.di.DI;
 import com.example.mareu.controllers.events.OnDataChangedToFilterListEvent;
 import com.example.mareu.controllers.events.OnDateSetToFilterEvent;
+import com.example.mareu.controllers.events.OnItemFilterPlaceAndDateEvent;
 import com.example.mareu.controllers.events.OnItemNoFilterEvent;
 import com.example.mareu.controllers.fragments.MainFragment;
 import com.example.mareu.model.MeetingRoom;
@@ -188,11 +189,13 @@ public class MainActivity extends AppCompatActivity {
                 month = month + 1;
                 customDateToFilter = day + "/" + month + "/" + year;
                 if (trackListenner == 1) {
+                    //eventBus to filter per date
                     EventBus.getDefault().post(new OnDateSetToFilterEvent(customDateToFilter));
                     Toast.makeText(getApplicationContext(), "Filtre : " + customDateToFilter, Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onClick: Filter with selected date  = On");
                 }else {
                     //eventBus to filter per meeting room and date
+                    EventBus.getDefault().post(new OnItemFilterPlaceAndDateEvent(customDateToFilter,mMeetingRoom));
                     Toast.makeText(getApplicationContext(),"trackListenner : "+trackListenner,Toast.LENGTH_SHORT).show();
                 }
             }

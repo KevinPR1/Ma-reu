@@ -16,6 +16,7 @@ import com.example.mareu.controllers.events.CreateMeetingEvent;
 import com.example.mareu.controllers.events.DeleteMeetingEvent;
 import com.example.mareu.controllers.events.OnDataChangedToFilterListEvent;
 import com.example.mareu.controllers.events.OnDateSetToFilterEvent;
+import com.example.mareu.controllers.events.OnItemFilterPlaceAndDateEvent;
 import com.example.mareu.controllers.events.OnItemNoFilterEvent;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.services.MeetingApiService;
@@ -112,6 +113,14 @@ public class MainFragment extends Fragment {
     @Subscribe
     public void onDataSetToFilterWithDate(OnDateSetToFilterEvent event) {
         mMeetingList = mMeetingApiService.filterDate(event.date);
+        mAdapter = new RecyclerViewAdapter(mMeetingList);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Subscribe
+    public void onItemFilterPlaceAndDateSelected(OnItemFilterPlaceAndDateEvent event) {
+        mMeetingList = mMeetingApiService.filterWithPlaceAndDate(event.customDate,event.customMeetingRoom);
         mAdapter = new RecyclerViewAdapter(mMeetingList);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();

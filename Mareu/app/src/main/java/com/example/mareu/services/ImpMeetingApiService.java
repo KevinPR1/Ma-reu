@@ -89,4 +89,18 @@ public class ImpMeetingApiService implements MeetingApiService {
 
         return list;
     }
+
+    @Override
+    public List<Meeting> filterWithPlaceAndDate(String date, MeetingRoom meetingRoom) {
+        List<Meeting> list = new ArrayList<>();
+
+        for (int i = 0; i < mMeetingList.size(); i++) {
+
+            if (mMeetingList.get(i).getPlace().equals(meetingRoom.getName()) && mMeetingList.get(i).getDate().equals(date)) {
+                list.add(mMeetingList.get(i));
+            }
+        }
+
+        return list;
+    }
 }
