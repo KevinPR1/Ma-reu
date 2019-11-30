@@ -8,9 +8,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.example.mareu.R;
 import com.example.mareu.controllers.MainActivity;
 import com.example.mareu.controllers.di.DI;
-import com.example.mareu.model.Meeting;
 import com.example.mareu.model.MeetingGuest;
-import com.example.mareu.model.MeetingRoom;
 import com.example.mareu.services.MeetingApiService;
 
 
@@ -47,12 +45,8 @@ import static org.hamcrest.core.IsNull.notNullValue;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityUtilsTests {
 
-    private MainActivity mMainActivity;
     private MeetingApiService mMeetingApiService = DI.getMeetingApiService();
-    private static int ITEMS_COUNT;
-    private List<Meeting> mMeetingList = mMeetingApiService.getMeetings();
     private List<MeetingGuest> mMeetingGuests = mMeetingApiService.getMemberList();
-    private List<MeetingRoom> mMeetingRooms = mMeetingApiService.getMeetingRooms();
 
 
     @Rule
@@ -63,7 +57,6 @@ public class MainActivityUtilsTests {
     public void setUp() throws Exception {
         MainActivity mainActivity = mActivityTestRule.getActivity();
         assertThat(mainActivity, notNullValue());
-        ITEMS_COUNT = mMeetingList.size();
     }
 
     @Test

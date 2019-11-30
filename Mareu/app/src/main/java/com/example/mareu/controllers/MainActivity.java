@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 displayDialogToFilterMeetingRooms();
                 return true;
             case R.id.filter_mode_date:
+                trackListenner = 1;
                 displayDialogToFilterTheDate();
                 return true;
             case R.id.filter_mode_place_and_date:
@@ -196,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     //eventBus to filter per meeting room and date
                     EventBus.getDefault().post(new OnItemFilterPlaceAndDateEvent(customDateToFilter,mMeetingRoom));
-                    Toast.makeText(getApplicationContext(),"trackListenner : "+trackListenner,Toast.LENGTH_SHORT).show();
                 }
             }
         }, year, month, day);

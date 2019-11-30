@@ -90,7 +90,7 @@ public class MainActivityTest {
         onView(withId(R.id.MeetingsList_RecyclerView)).check(matches(isDisplayed()));
         onView(withId(R.id.MeetingsList_RecyclerView)).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
-        onView(withId(R.id.MeetingsList_RecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
+        onView(withId(R.id.MeetingsList_RecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, new DeleteViewAction()));
         // Then : the number of element is 2
         onView(withId(R.id.MeetingsList_RecyclerView)).check(withItemCount(ITEMS_COUNT - 1));
     }
@@ -98,7 +98,7 @@ public class MainActivityTest {
 
     @Test
     public void myMeetingList_addAction_shouldAddItemIntoMeetingList() {
-        // Given : create and add custom mmeeting
+        // Given : create and add custom meeting
         onView(withId(R.id.MeetingsList_RecyclerView)).check(matches(isDisplayed()));
         //click on floating action button
         onView(withId(R.id.floating_button_add)).perform(click());
@@ -143,7 +143,7 @@ public class MainActivityTest {
 
 
     @Test
-    public void myMeetingList_dilterAction_shouldDisplayFilterDate() {
+    public void myMeetingList_filterAction_shouldDisplayFilterDate() {
         // Given : We ensure that we have three meetings
         onView(withId(R.id.MeetingsList_RecyclerView)).check(withItemCount(ITEMS_COUNT));
         // When : We click on the toolbar and select a date
@@ -151,13 +151,13 @@ public class MainActivityTest {
         onView(withText(R.string.mode_date)).check(matches(isDisplayed()));
         // set date for te filter
         onView(withText(R.string.mode_date)).perform(click());
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2019 - 2, 27, 11));
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2019 , 12, 27));
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(R.id.MeetingsList_RecyclerView)).check(withItemCount(2));
     }
 
     @Test
-    public void myMeetingList_dilterAction_shouldDisplayFilterMeetingRoom() {
+    public void myMeetingList_filterAction_shouldDisplayFilterMeetingRoom() {
         // Given : We check that we have 3 Reunions
         onView(withId(R.id.MeetingsList_RecyclerView)).check(withItemCount(ITEMS_COUNT));
         // When : We click on the toolbar and select a room
@@ -185,6 +185,23 @@ public class MainActivityTest {
         onView(withId(R.id.filter_icon)).perform(click());
         //Click on no filter button to remove all filters in meeting list
         onView(withText(R.string.mode_noFilter)).perform(click());
-        onView(withId(R.id.MeetingsList_RecyclerView)).check(withItemCount(3));
+        onView(withId(R.id.MeetingsList_RecyclerView)).check(withItemCount(4));
+    }
+
+    @Test
+    public void myMeetingList_FilterPlaceAndDateAction_shouldDisplayFilterWithPlaceAndDate() {
+        // Given : We check that we have 3 Reunions
+        onView(withId(R.id.MeetingsList_RecyclerView)).check(withItemCount(ITEMS_COUNT));
+
+        onView(withId(R.id.filter_icon)).perform(click());
+        //set meeting room for the filter
+        onView(withText(R.string.mode_place_and_date)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Peach"))).perform(click());
+        onView(withId(android.R.id.button1)).perform(click());
+        //set the date for the filter
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2019 , 12, 27));
+        onView(withId(android.R.id.button1)).perform(click());
+        // check the meeting list
+        onView(withId(R.id.MeetingsList_RecyclerView)).check(withItemCount(1));
     }
 }

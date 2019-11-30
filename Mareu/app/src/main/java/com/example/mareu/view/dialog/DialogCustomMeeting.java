@@ -17,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.view.View;
 
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -45,7 +44,7 @@ import java.util.Objects;
 /**
  * Created by Kevin  - Openclassrooms on 20/11/2019
  */
-public class DialogCustomMeeting extends DialogFragment implements AdapterView.OnItemSelectedListener {
+public class DialogCustomMeeting extends DialogFragment {
     private EditText mSubject, mGuest, mHour, mDate;
     private Spinner mSpinner;
     private MeetingApiService mMeetingApiService;
@@ -72,7 +71,6 @@ public class DialogCustomMeeting extends DialogFragment implements AdapterView.O
         ArrayAdapter<MeetingRoom> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, mMeetingApiService.getMeetingRooms());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
-        mSpinner.setOnItemSelectedListener(this);
 
 
         builder.setView(view)
@@ -127,15 +125,6 @@ public class DialogCustomMeeting extends DialogFragment implements AdapterView.O
         return builder.create();
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        String text = adapterView.getItemAtPosition(position).toString();
-        Toast.makeText(adapterView.getContext(),text,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }
 
     // Create Dialog ---------------------------------------------------------------------------------------------------------------------------
 
