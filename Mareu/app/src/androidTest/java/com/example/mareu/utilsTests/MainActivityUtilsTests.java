@@ -1,9 +1,9 @@
 package com.example.mareu.utilsTests;
 
-import android.support.test.espresso.contrib.PickerActions;
+
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.espresso.contrib.RecyclerViewActions;
+
 
 import com.example.mareu.R;
 import com.example.mareu.controllers.MainActivity;
@@ -13,8 +13,7 @@ import com.example.mareu.model.MeetingGuest;
 import com.example.mareu.model.MeetingRoom;
 import com.example.mareu.services.MeetingApiService;
 
-import static android.support.test.espresso.matcher.RootMatchers.isPlatformPopup;
-import static org.hamcrest.Matchers.containsString;
+
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,15 +22,13 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.replaceText;
+
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
-import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
-import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
-import static com.example.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
+
 
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -42,7 +39,7 @@ import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.*;
+
 
 /**
  * Created by Kevin  - Openclassrooms on 30/11/2019
@@ -114,6 +111,4 @@ public class MainActivityUtilsTests {
         onView(withId(android.R.id.button3)).perform(click());
         onView(withId(R.id.edit_text_guest_dialog)).check(matches(withText("")));
     }
-    
-
 }

@@ -94,7 +94,7 @@ public class MainFragment extends Fragment {
     }
 
     @Subscribe
-    public void onDataChanged(OnDataChangedToFilterListEvent event) {
+    public void onDataChangedToFilterWithMeetingRoom(OnDataChangedToFilterListEvent event) {
         mMeetingList = mMeetingApiService.filterMeetingRoom(event.meetingRoom);
         mAdapter = new RecyclerViewAdapter(mMeetingList);
         mRecyclerView.setAdapter(mAdapter);
@@ -110,7 +110,7 @@ public class MainFragment extends Fragment {
     }
 
     @Subscribe
-    public void onDataSet(OnDateSetToFilterEvent event) {
+    public void onDataSetToFilterWithDate(OnDateSetToFilterEvent event) {
         mMeetingList = mMeetingApiService.filterDate(event.date);
         mAdapter = new RecyclerViewAdapter(mMeetingList);
         mRecyclerView.setAdapter(mAdapter);

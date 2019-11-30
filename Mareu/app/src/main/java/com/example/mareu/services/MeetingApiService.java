@@ -27,10 +27,10 @@ public interface MeetingApiService {
     /**
      * Give a list of Reunions with the same date
      *
-     * @param dateToFiltrer to filter
+     * @param dateToFilter to filter
      * @return {@link List}
      */
-    List<Meeting> filterDate(String dateToFiltrer);
+    List<Meeting> filterDate(String dateToFilter);
 
     /**
      * Give a list of Reunions with the same room
