@@ -50,14 +50,13 @@ public class DialogCustomMeeting extends DialogFragment {
     private MeetingApiService mMeetingApiService;
     private ArrayList<Integer> mSelectedItems = new ArrayList<>();
     private boolean[] mCheckedItems;
+    private String[] strMemberList;
 
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_fragment_custom_meeting, null);
 
         mSubject = view.findViewById(R.id.edit_text_subject_dialog);
@@ -65,13 +64,11 @@ public class DialogCustomMeeting extends DialogFragment {
         mGuest = view.findViewById(R.id.edit_text_guest_dialog);
         mSpinner = view.findViewById(R.id.spinner_dialog);
         mDate = view.findViewById(R.id.edit_text__date_dialog);
-
         mMeetingApiService = DI.getMeetingApiService();
 
         ArrayAdapter<MeetingRoom> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, mMeetingApiService.getMeetingRooms());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
-
 
         builder.setView(view)
                 .setTitle("Création d'une réunion")
@@ -91,8 +88,6 @@ public class DialogCustomMeeting extends DialogFragment {
                             Toast.makeText(getActivity(), "Création en cours...", Toast.LENGTH_LONG).show();
                             EventBus.getDefault().post(new CreateMeetingEvent(meeting));
                         }
-
-
                     }
                 })
                 .setNegativeButton("Retour", new DialogInterface.OnClickListener() {
@@ -102,7 +97,12 @@ public class DialogCustomMeeting extends DialogFragment {
                         Toast.makeText(getContext(), "Création annulé", Toast.LENGTH_SHORT).show();
                     }
                 });
+        initListener();
+        return builder.create();
+    }
+    /*-------------------------------------------------------------- Create Dialog */
 
+    private void initListener(){
         mHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,13 +121,8 @@ public class DialogCustomMeeting extends DialogFragment {
                 configureDate();
             }
         });
-
-        return builder.create();
     }
-
-
-    // Create Dialog ---------------------------------------------------------------------------------------------------------------------------
-
+    /*--------------------------------------------------------------  Listeners when dialog is created*/
 
     private void configureTimePicker() {
         Calendar calendar = Calendar.getInstance();
@@ -142,34 +137,32 @@ public class DialogCustomMeeting extends DialogFragment {
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
-    // Show TimePicker Dialog ---------------------------------------------------------------------------------------------------------------------------
+    /*--------------------------------------------------------------Show TimePicker Dialog */
 
-    private void configureGuest() {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-        String[] strMemberList = new String[mMeetingApiService.getMemberList().size()];
+    private void dropMemberList(){
+        strMemberList = new String[mMeetingApiService.getMemberList().size()];
         for (int i = 0; i < mMeetingApiService.getMemberList().size(); i++) {
             strMemberList[i] = mMeetingApiService.getMemberList().get(i).getName();
         }
-
         mCheckedItems = new boolean[strMemberList.length];
         for (int i = 0; i < mCheckedItems.length; i++) {
             if (mSelectedItems.contains(i)) {
                 mCheckedItems[i] = true;
             }
         }
+    }
 
+    private void configureGuest() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+        dropMemberList();
         builder.setTitle("Choisissez les participants")
                 .setMultiChoiceItems(strMemberList, mCheckedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which, boolean isChecked) {
-
                         if (isChecked) {
-                            // If the user checked the item, add it to the selected items
                             mSelectedItems.add(which);
                             mCheckedItems[which] = true;
                         } else if (mSelectedItems.contains(which)) {
-                            // Else, if the item is already in the array, remove it
                             mSelectedItems.remove(Integer.valueOf(which));
                             mCheckedItems[which] = false;
                         }
@@ -203,10 +196,9 @@ public class DialogCustomMeeting extends DialogFragment {
                         mGuest.setText("");
                     }
                 });
-
         builder.show();
     }
-    // Show Dialog (MutliChoiceItems) ---------------------------------------------------------------------------------------------------------------------------
+    /*-------------------------------------------------------------- Show Dialog (MultiChoiceItems)*/
 
     private void configureDate() {
         Calendar cal = Calendar.getInstance();
@@ -228,9 +220,6 @@ public class DialogCustomMeeting extends DialogFragment {
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         dialog.show();
-
     }
-
-
-    // Show DatePicker ---------------------------------------------------------------------------------------------------------------------------
+    /* -------------------------------------------------------------- Show DatePicker*/
 }
