@@ -47,9 +47,10 @@ public class ImpConfigMeetingGenerator {
 
 
     public static List<Meeting> MEETING_LIST = Arrays.asList(
-            new Meeting("16h00", MEETING_ROOMS_LIST.get(0).getName(), "Réunion A", MEMBER_LIST.get(2).getMail() + MEMBER_LIST.get(1).getMail() + MEMBER_LIST.get(8).getMail(), "27/11/2019", MEETING_ROOMS_LIST.get(0).getImage()),
-            new Meeting("15h00", MEETING_ROOMS_LIST.get(1).getName(), "Réunion B", MEMBER_LIST.get(6).getMail() + MEMBER_LIST.get(7).getMail() + MEMBER_LIST.get(9).getMail(), "27/11/2019", MEETING_ROOMS_LIST.get(1).getImage()),
-            new Meeting("15h00", MEETING_ROOMS_LIST.get(2).getName(), "Réunion C", MEMBER_LIST.get(5).getMail() + MEMBER_LIST.get(4).getMail() + MEMBER_LIST.get(3).getMail(), "27/11/2019", MEETING_ROOMS_LIST.get(2).getImage())
+            new Meeting("16h00", MEETING_ROOMS_LIST.get(0).getName(), "Réunion A", MEMBER_LIST.get(2).getMail() +", "+ MEMBER_LIST.get(1).getMail() +", "+ MEMBER_LIST.get(8).getMail(), "27/12/2019", MEETING_ROOMS_LIST.get(0).getImage()),
+            new Meeting("15h00", MEETING_ROOMS_LIST.get(1).getName(), "Réunion B", MEMBER_LIST.get(6).getMail() +", "+ MEMBER_LIST.get(7).getMail() +", "+ MEMBER_LIST.get(9).getMail(), "27/12/2019", MEETING_ROOMS_LIST.get(1).getImage()),
+            new Meeting("15h00", MEETING_ROOMS_LIST.get(2).getName(), "Réunion C", MEMBER_LIST.get(5).getMail() + ", "+MEMBER_LIST.get(4).getMail() + ", "+MEMBER_LIST.get(3).getMail(), "28/12/2019", MEETING_ROOMS_LIST.get(2).getImage()),
+            new Meeting("15h00", MEETING_ROOMS_LIST.get(8).getName(), "Réunion C", MEMBER_LIST.get(8).getMail() + ", "+MEMBER_LIST.get(9).getMail() + ", "+MEMBER_LIST.get(6).getMail(), "18/12/2019", MEETING_ROOMS_LIST.get(8).getImage())
     );
 
 

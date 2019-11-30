@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.example.mareu.R;
 import com.example.mareu.controllers.di.DI;
 import com.example.mareu.controllers.events.OnDataChangedToFilterListEvent;
 import com.example.mareu.controllers.events.OnDateSetToFilterEvent;
+import com.example.mareu.controllers.events.OnItemFilterPlaceAndDateEvent;
 import com.example.mareu.controllers.events.OnItemNoFilterEvent;
 import com.example.mareu.controllers.fragments.MainFragment;
 import com.example.mareu.model.MeetingRoom;
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private MeetingApiService mMeetingApiService;
     private MeetingRoom mMeetingRoom;
     private String customDateToFilter;
+    private static final String TAG = "MainActivity";
+    private int trackListenner;
     @BindView(R.id.floating_button_add)
     FloatingActionButton mFloatingActionButtong;
     @BindView(R.id.toolbar)
@@ -112,10 +116,16 @@ public class MainActivity extends AppCompatActivity {
                 EventBus.getDefault().post(new OnItemNoFilterEvent());
                 return true;
             case R.id.filter_mode_meetingRooms:
+                trackListenner = 1 ;
                 displayDialogToFilterMeetingRooms();
                 return true;
             case R.id.filter_mode_date:
+                trackListenner = 1;
                 displayDialogToFilterTheDate();
+                return true;
+            case R.id.filter_mode_place_and_date:
+                trackListenner = 2;
+                displayDialogToFilterMeetingRooms();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -142,19 +152,22 @@ public class MainActivity extends AppCompatActivity {
             roomList[i] = mMeetingApiService.getMeetingRooms().get(i).getName();
         }
 
-        builder.setTitle("")
-                .setTitle("Filtrer les réunions par salle")
-                .setSingleChoiceItems(roomList, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        mMeetingRoom = mMeetingApiService.getMeetingRooms().get(i);
-                        Toast.makeText(getApplicationContext(), "Salle : " + mMeetingRoom.getName(), Toast.LENGTH_SHORT).show();
-                    }
-                })
+        builder.setSingleChoiceItems(roomList, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mMeetingRoom = mMeetingApiService.getMeetingRooms().get(i);
+                Toast.makeText(getApplicationContext(), "Salle : " + mMeetingRoom.getName(), Toast.LENGTH_SHORT).show();
+            }
+        })
                 .setPositiveButton("Filtrer", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        EventBus.getDefault().post(new OnDataChangedToFilterListEvent(mMeetingRoom));
+                        if (trackListenner == 1) {
+                            EventBus.getDefault().post(new OnDataChangedToFilterListEvent(mMeetingRoom));
+                            Log.d(TAG, "onClick: Filter with selected meeting room  = On");
+                        }else {
+                           displayDialogToFilterTheDate();
+                        }
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -176,8 +189,15 @@ public class MainActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 customDateToFilter = day + "/" + month + "/" + year;
-                EventBus.getDefault().post(new OnDateSetToFilterEvent(customDateToFilter));
-                Toast.makeText(getApplicationContext(), "Filtre : " + customDateToFilter, Toast.LENGTH_SHORT).show();
+                if (trackListenner == 1) {
+                    //eventBus to filter per date
+                    EventBus.getDefault().post(new OnDateSetToFilterEvent(customDateToFilter));
+                    Toast.makeText(getApplicationContext(), "Filtre : " + customDateToFilter, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onClick: Filter with selected date  = On");
+                }else {
+                    //eventBus to filter per meeting room and date
+                    EventBus.getDefault().post(new OnItemFilterPlaceAndDateEvent(customDateToFilter,mMeetingRoom));
+                }
             }
         }, year, month, day);
         dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
