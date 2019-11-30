@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private MeetingRoom mMeetingRoom;
     private String customDateToFilter;
     private static final String TAG = "MainActivity";
+    private int trackListenner;
     @BindView(R.id.floating_button_add)
     FloatingActionButton mFloatingActionButtong;
     @BindView(R.id.toolbar)
@@ -114,10 +115,15 @@ public class MainActivity extends AppCompatActivity {
                 EventBus.getDefault().post(new OnItemNoFilterEvent());
                 return true;
             case R.id.filter_mode_meetingRooms:
+                trackListenner = 1 ;
                 displayDialogToFilterMeetingRooms();
                 return true;
             case R.id.filter_mode_date:
                 displayDialogToFilterTheDate();
+                return true;
+            case R.id.filter_mode_place_and_date:
+                trackListenner = 2;
+                displayDialogToFilterMeetingRooms();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -145,17 +151,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         builder.setSingleChoiceItems(roomList, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        mMeetingRoom = mMeetingApiService.getMeetingRooms().get(i);
-                        Toast.makeText(getApplicationContext(), "Salle : " + mMeetingRoom.getName(), Toast.LENGTH_SHORT).show();
-                    }
-                })
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mMeetingRoom = mMeetingApiService.getMeetingRooms().get(i);
+                Toast.makeText(getApplicationContext(), "Salle : " + mMeetingRoom.getName(), Toast.LENGTH_SHORT).show();
+            }
+        })
                 .setPositiveButton("Filtrer", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        EventBus.getDefault().post(new OnDataChangedToFilterListEvent(mMeetingRoom));
-                        Log.d(TAG, "onClick: Filter with selected meeting room  = On");
+                        if (trackListenner == 1) {
+                            EventBus.getDefault().post(new OnDataChangedToFilterListEvent(mMeetingRoom));
+                            Log.d(TAG, "onClick: Filter with selected meeting room  = On");
+                        }else {
+                           displayDialogToFilterTheDate();
+                        }
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -177,9 +187,14 @@ public class MainActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 customDateToFilter = day + "/" + month + "/" + year;
-                EventBus.getDefault().post(new OnDateSetToFilterEvent(customDateToFilter));
-                Toast.makeText(getApplicationContext(), "Filtre : " + customDateToFilter, Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onClick: Filter with selected date  = On");
+                if (trackListenner == 1) {
+                    EventBus.getDefault().post(new OnDateSetToFilterEvent(customDateToFilter));
+                    Toast.makeText(getApplicationContext(), "Filtre : " + customDateToFilter, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onClick: Filter with selected date  = On");
+                }else {
+                    //eventBus to filter per meeting room and date
+                    Toast.makeText(getApplicationContext(),"trackListenner : "+trackListenner,Toast.LENGTH_SHORT).show();
+                }
             }
         }, year, month, day);
         dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);

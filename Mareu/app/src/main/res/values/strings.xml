@@ -23,6 +23,7 @@
     <string name="mode_meetingRoom">Filtrer par salle</string>
     <string name="mode_date">Filtrer par date</string>
     <string name="mode_noFilter">Supprimer les filtres</string>
+    <string name="mode_place_and_date">…par salle et date</string>
 
 
 </resources>
