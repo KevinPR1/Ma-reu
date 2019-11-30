@@ -113,9 +113,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             String updateTitle1 = meeting.getSubject();
             String updateTitle2 = meeting.getDate() + " - " + meeting.getHour() + " - " + meeting.getPlace();
             String mail = meeting.getParticipants();
+
+            if (updateTitle1.length() > 57) {
+                updateTitle1 = updateTitle1.substring(0, 57);
+                updateTitle1 += "...";
+            }
             title.setText(updateTitle1);
+
+            if (updateTitle2.length() > 57) {
+                updateTitle2 = updateTitle2.substring(0,57);
+                updateTitle2 += "...";
+            }
             title2.setText(updateTitle2);
             circleImageView.setImageResource(meeting.getImage());
+
+            if (mail.length() > 57) {
+                mail = mail.substring(0,57);
+                mail += "...";
+            }
             guests.setText(mail);
         }
 
