@@ -1,6 +1,7 @@
 package com.example.mareu.view.adapter;
 
 
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -50,9 +51,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Meeting meeting = mMeetingList.get(position);
-        viewHolder.updateView(meeting);
+        if (viewHolder.itemView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            viewHolder.updateView(meeting);
+        }else if (viewHolder.itemView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            viewHolder.updateViewForLandscape(meeting);
+        }
         viewHolder.configureOnclickDeleteButton(meeting);
-
     }
 
     @Override
@@ -82,31 +86,38 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public void updateView(Meeting meeting) {
 
             String updateTitle1 = meeting.getSubject();
-            if (updateTitle1.length() > 30) {
-                updateTitle1 = updateTitle1.substring(0, 30);
-                updateTitle1 += "...";
-            }
-            title.setText(updateTitle1);
-
             String updateTitle2 = meeting.getDate() + " - " + meeting.getHour() + " - " + meeting.getPlace();
-            if (updateTitle2.length() > 30) {
-                updateTitle2 = updateTitle2.substring(0, 30);
-                updateTitle2 += "...";
-            }
-            title2.setText(updateTitle2);
-
-            circleImageView.setImageResource(meeting.getImage());
-
             String mail = meeting.getParticipants();
-            if (mail.length() > 30) {
-                mail = mail.substring(0, 30);
-                mail += "...";
-            }
-            guests.setText(mail);
 
+                if (updateTitle1.length() > 30) {
+                    updateTitle1 = updateTitle1.substring(0, 30);
+                    updateTitle1 += "...";
+                }
+                title.setText(updateTitle1);
 
+                if (updateTitle2.length() > 30) {
+                    updateTitle2 = updateTitle2.substring(0, 30);
+                    updateTitle2 += "...";
+                }
+                title2.setText(updateTitle2);
+                circleImageView.setImageResource(meeting.getImage());
+
+                if (mail.length() > 30) {
+                    mail = mail.substring(0, 30);
+                    mail += "...";
+                }
+                guests.setText(mail);
         }
 
+        public void updateViewForLandscape(Meeting meeting) {
+            String updateTitle1 = meeting.getSubject();
+            String updateTitle2 = meeting.getDate() + " - " + meeting.getHour() + " - " + meeting.getPlace();
+            String mail = meeting.getParticipants();
+            title.setText(updateTitle1);
+            title2.setText(updateTitle2);
+            circleImageView.setImageResource(meeting.getImage());
+            guests.setText(mail);
+        }
 
         public void configureOnclickDeleteButton(final Meeting meeting) {
             deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -117,8 +128,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
         }
-
-
     }
-
 }
