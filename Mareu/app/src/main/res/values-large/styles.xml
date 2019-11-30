@@ -1,0 +1,42 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+
+    <!-- TOOLBAR THEME -->
+    <style name="AppTheme.ToolBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- Color of the title text in the Toolbar , in the menu and the background of itme menu-->
+        <item name="android:textColorPrimary">@color/toolBar_title</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:itemBackground">@android:color/white</item>
+    </style>
+
+
+    <!-- TOOLBAR TITLE THEME -->
+    <style name="AppTheme.titletext" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- ITEM LIST TITLE -->
+    <style name="AppTheme.itemTitleText" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+
+    <!-- TIMEPICKER THEME -->
+    <style name="AppTheme.TimePicker" parent="android:Theme.Holo.Light.Dialog.MinWidth"/>
+
+    <!-- DATEPICKER THEME -->
+    <style name="AppTheme.DatePicker" parent="android:Theme.Holo.Light.Dialog.MinWidth"/>
+
+
+
+</resources>
