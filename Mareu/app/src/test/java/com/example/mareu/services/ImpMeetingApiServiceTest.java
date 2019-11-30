@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-
 import java.util.List;
 import java.util.Objects;
 
@@ -25,16 +24,16 @@ public class ImpMeetingApiServiceTest {
     private Meeting meeting;
 
     @Before
-    public void setUp()  {
+    public void setUp() {
         mMeetingApiService = DI.getMeetingApiService();
-        meeting = new Meeting("","","","","",0);
+        meeting = new Meeting("17h00", "Daisy", "test", "kevin@lamzone.com", "03/12/2019", 0);
     }
 
     @Test
     public void getMeetingsWithSuccess() {
         List<Meeting> meetings = mMeetingApiService.getMeetings();
         List<Meeting> container = ImpConfigMeetingGenerator.MEETING_LIST;
-        assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(Objects.requireNonNull(container.toArray())));
+        assertTrue(meetings.containsAll(container));
     }
 
     @Test
@@ -67,19 +66,33 @@ public class ImpMeetingApiServiceTest {
 
     @Test
     public void filterDateWithSuccess() {
-        String date = "30/11/2019" ;
-        Meeting meetingToFilter = new Meeting("","","","",date,0);
+        String date = "11/12/2019";
+        MeetingRoom meetingRoom = mMeetingApiService.getMeetingRooms().get(9);
+        MeetingGuest meetingGuest = mMeetingApiService.getMemberList().get(5);
+        Meeting meetingToFilter = new Meeting("17h00", meetingRoom.getName(), "test", meetingGuest.getMail(), date, meetingRoom.getImage());
         mMeetingApiService.getMeetings().add(meetingToFilter);
         List<Meeting> filterListWithDate = mMeetingApiService.filterDate(date);
-        assertEquals(filterListWithDate.size(),1);
+        assertEquals(filterListWithDate.size(), 1);
     }
 
     @Test
     public void filterMeetingRoomWithSuccess() {
-        MeetingRoom meetingRoom = mMeetingApiService.getMeetingRooms().get(9);
-        Meeting meetingToFilter = new Meeting("",meetingRoom.getName(),"","","",0);
+        MeetingRoom meetingRoom = mMeetingApiService.getMeetingRooms().get(6);
+        MeetingGuest meetingGuest = mMeetingApiService.getMemberList().get(8);
+        Meeting meetingToFilter = new Meeting("17h00", meetingRoom.getName(), "test", meetingGuest.getMail(), "01/12/2019", meetingRoom.getImage());
         mMeetingApiService.getMeetings().add(meetingToFilter);
         List<Meeting> filterListWithMeetingRoom = mMeetingApiService.filterMeetingRoom(meetingRoom);
-        assertEquals(filterListWithMeetingRoom.size(),1);
+        assertEquals(filterListWithMeetingRoom.size(), 1);
+    }
+
+    @Test
+    public void filterWithPlaceAndDate() {
+        MeetingRoom meetingRoom = mMeetingApiService.getMeetingRooms().get(7);
+        MeetingGuest meetingGuest = mMeetingApiService.getMemberList().get(7);
+        String date = "11/12/2019";
+        Meeting meetingToFilter = new Meeting("16h00", meetingRoom.getName(), "test", meetingGuest.getMail(), date, meetingRoom.getImage());
+        mMeetingApiService.getMeetings().add(meetingToFilter);
+        List<Meeting> filterListWithPlaceAndDate = mMeetingApiService.filterWithPlaceAndDate(date,meetingRoom);
+        assertEquals(filterListWithPlaceAndDate.size(), 1);
     }
 }

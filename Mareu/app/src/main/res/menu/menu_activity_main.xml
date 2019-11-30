@@ -12,7 +12,8 @@
         <menu>
 
             <group>
-                <item android:id="@+id/filter_mode_noFilter"
+                <item
+                    android:id="@+id/filter_mode_noFilter"
                     android:title="@string/mode_noFilter" />
             </group>
 
@@ -26,6 +27,12 @@
                 <item
                     android:id="@+id/filter_mode_date"
                     android:title="@string/mode_date" />
+            </group>
+
+            <group>
+                <item
+                    android:id="@+id/filter_mode_place_and_date"
+                    android:title="@string/mode_place_and_date" />
             </group>
 
         </menu>
