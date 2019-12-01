@@ -6,4 +6,5 @@
     <dimen name="edit_text_dialog_init">150dp</dimen>
     <dimen name="default_marginStart">10dp</dimen>
     <dimen name="default_marginEnd">10dp</dimen>
+    <dimen name="width_edit_text">150dp</dimen>
 </resources>

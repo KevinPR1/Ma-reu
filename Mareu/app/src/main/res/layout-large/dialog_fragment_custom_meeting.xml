@@ -23,7 +23,7 @@
 
     <EditText
         android:id="@+id/edit_text__hour_dialog"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_marginStart"
         android:layout_marginTop="20dp"
@@ -38,7 +38,7 @@
 
     <EditText
         android:id="@+id/edit_text__date_dialog"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_marginStart"
         android:focusable="true"
@@ -61,7 +61,7 @@
 
     <EditText
         android:id="@+id/edit_text_guest_dialog"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_marginStart"
         android:focusable="true"

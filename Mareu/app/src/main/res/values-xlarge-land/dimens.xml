@@ -4,6 +4,6 @@
     <dimen name="margin_Start">15dp</dimen>
     <dimen name="textview_init">265dp</dimen>
     <dimen name="edit_text_dialog_init">150dp</dimen>
-    <dimen name="default_marginStart">15dp</dimen>
+    <dimen name="default_marginStart">20dp</dimen>
     <dimen name="default_marginEnd">10dp</dimen>
 </resources>

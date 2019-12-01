@@ -61,7 +61,7 @@
 
     <EditText
         android:id="@+id/edit_text_guest_dialog"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/width_edit_text"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"

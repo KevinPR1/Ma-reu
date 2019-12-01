@@ -82,7 +82,7 @@
         android:layout_marginEnd="@dimen/default_marginEnd"
         android:text="@string/textView_text_hint_duration"
         android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
