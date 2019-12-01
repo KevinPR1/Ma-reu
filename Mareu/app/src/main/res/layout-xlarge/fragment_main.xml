@@ -6,8 +6,8 @@
     android:id="@+id/MeetingsList_RecyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.example.mareu.controllers.fragments.MainFragment"
     tools:listitem="@layout/item_list_meetings" />
