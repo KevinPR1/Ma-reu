@@ -11,14 +11,6 @@
 
 
 
-    <string-array name="Filter_date">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
-
-
 
     <string name="mode_meetingRoom">Filtrer par salle</string>
     <string name="mode_date">Filtrer par date</string>
