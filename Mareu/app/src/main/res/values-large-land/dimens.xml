@@ -6,4 +6,10 @@
     <dimen name="edit_text_dialog_init">170dp</dimen>
     <dimen name="default_marginStart">20dp</dimen>
     <dimen name="default_marginEnd">10dp</dimen>
+    <dimen name="margin_end_delete_button">5dp</dimen>
+    <dimen name="layout_width_init">45dp</dimen>
+    <dimen name="layout_height_init_circleImageView">45dp</dimen>
+    <dimen name="margin_top_circleImageView">16dp</dimen>
+    <dimen name="margin_bottom_circleImageView">16dp</dimen>
+    <dimen name="civ_circleImageView">1dp</dimen>
 </resources>
